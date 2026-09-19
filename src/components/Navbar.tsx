@@ -25,7 +25,6 @@ export default function Navbar() {
           <span className="brand-sara">SARA</span>
           <span className="brand-777">777</span>
         </span>
-        <span className="brand-badge">S2 VIP</span>
       </div>
 
       <button
