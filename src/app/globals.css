@@ -20,11 +20,11 @@
   --glass-border: rgba(255, 255, 255, 0.88);
   --glass-border-gold: rgba(227, 178, 60, 0.35);
   
-  /* Refined Corner Radii for Modern Squircle Aesthetics */
+  /* Full Rounded Button & Pill Corners */
   --radius-card: 32px;
-  --radius-btn-lg: 20px;
-  --radius-btn-md: 14px;
-  --radius-btn-sm: 10px;
+  --radius-btn-lg: 9999px;
+  --radius-btn-md: 9999px;
+  --radius-btn-sm: 9999px;
   --radius-pill: 9999px;
   --radius-row: 14px;
   
@@ -464,11 +464,7 @@ button { font: inherit; border: none; cursor: pointer; background: none; }
 }
 
 .brand-sara {
-  background: linear-gradient(135deg, var(--mustard) 0%, var(--mustard-dark) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 1px 2px rgba(227, 178, 60, 0.3));
+  color: var(--mustard);
 }
 
 .brand-777 {
@@ -578,27 +574,12 @@ button { font: inherit; border: none; cursor: pointer; background: none; }
 }
 
 .hero-sara {
-  background: linear-gradient(
-    120deg,
-    #a67300 0%,
-    #d49b13 22%,
-    #f8dc72 45%,
-    #ffffff 54%,
-    #e3b23c 68%,
-    #996500 100%
-  );
-  background-size: 240% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: goldSheen 4s ease-in-out infinite;
-  filter: drop-shadow(0 2px 8px rgba(166, 115, 0, 0.45));
+  color: var(--mustard);
 }
 
 .hero-777 {
   color: var(--ink);
   margin-left: 6px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 @keyframes goldSheen {
@@ -717,10 +698,11 @@ button { font: inherit; border: none; cursor: pointer; background: none; }
 }
 
 .dl-arrow {
-  display: inline-block;
-  font-size: 20px;
-  line-height: 1;
-  animation: bounceDown 1.4s ease-in-out infinite;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  animation: bounceDown 1.5s ease-in-out infinite;
 }
 
 @keyframes bounceDown {
@@ -1246,7 +1228,7 @@ button { font: inherit; border: none; cursor: pointer; background: none; }
     padding: 16px 28px;
     font-size: 15px;
     max-width: 100%;
-    border-radius: 18px;
+    border-radius: 9999px;
   }
 
   /* Rates Table */
@@ -1307,7 +1289,7 @@ button { font: inherit; border: none; cursor: pointer; background: none; }
     padding: 16px 24px;
     font-size: 15px;
     max-width: 100%;
-    border-radius: 18px;
+    border-radius: 9999px;
   }
 
   .trust-strip {

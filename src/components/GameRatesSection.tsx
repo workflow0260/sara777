@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useScrollReveal } from "@/components/useScrollReveal";
 import { useDownloadAction } from "@/components/useDownloadAction";
+import { Download, Check } from "lucide-react";
 
 interface GameRate {
   id: string;
@@ -61,12 +62,8 @@ export default function GameRatesSection() {
       ref={sectionRef as React.RefObject<HTMLElement>}
       className={`rates-section reveal reveal-d3 ${sectionVisible ? "visible" : ""}`}
     >
-      {/* Section Header */}
+      {/* Section Header (without best rates badge) */}
       <div className="section-header">
-        <div className="section-title-badge">
-          <span className="badge-icon">📊</span>
-          <span>BEST MARKET RATIOS</span>
-        </div>
         <h2 className="section-title">Game Rates</h2>
         <p className="section-subtitle">Guaranteed 1 Rs Standard Winning Payouts</p>
       </div>
@@ -137,9 +134,11 @@ export default function GameRatesSection() {
           onClick={triggerDownload}
           aria-label="Download Sara777 APK now"
         >
-          <span className="dl-arrow" aria-hidden="true">
-            {isCompleted ? "✓" : isDownloading ? "⏳" : "↓"}
-          </span>
+          {isCompleted ? (
+            <Check size={20} strokeWidth={2.5} className="dl-arrow" aria-hidden="true" />
+          ) : (
+            <Download size={20} strokeWidth={2.5} className="dl-arrow" aria-hidden="true" />
+          )}
           <span>
             {isCompleted
               ? "DOWNLOAD COMPLETE! 🚀"

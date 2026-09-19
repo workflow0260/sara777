@@ -2,6 +2,7 @@
 
 import { useScrollReveal } from "@/components/useScrollReveal";
 import { useDownloadAction } from "@/components/useDownloadAction";
+import { Download, Check } from "lucide-react";
 
 export default function HeroSection() {
   const [ref, visible] = useScrollReveal(0.1);
@@ -21,14 +22,12 @@ export default function HeroSection() {
         <span>OFFICIAL GAMING PORTAL</span>
       </div>
 
-      {/* Main Brand Title */}
+      {/* Main Brand Title - Simple Solid Logo */}
       <div className="hero-title-wrap">
         <h1 className="hero-title">
           <span className="hero-sara">SARA</span>
           <span className="hero-777">777</span>
         </h1>
-        <div className="title-sparkle sparkle-1">✦</div>
-        <div className="title-sparkle sparkle-2">✦</div>
       </div>
 
       {/* Tagline Pill */}
@@ -50,14 +49,9 @@ export default function HeroSection() {
           <span className="feature-icon">🛡️</span>
           <span className="feature-label">100% Safe APK</span>
         </div>
-        <div className="feature-sep">•</div>
-        <div className="feature-item">
-          <span className="feature-icon">👑</span>
-          <span className="feature-label">Best Rates</span>
-        </div>
       </div>
 
-      {/* Main Download CTA Button with Ripple, States & Celebration */}
+      {/* Main Download CTA Button with Lucide Icon */}
       <div className="hero-cta-group">
         <button
           className={`hero-download btn-mustard btn-hero-pulse ${
@@ -70,9 +64,11 @@ export default function HeroSection() {
           onClick={triggerDownload}
           aria-label="Download Sara777 Official App"
         >
-          <span className="dl-arrow" aria-hidden="true">
-            {isCompleted ? "✓" : isDownloading ? "⏳" : "↓"}
-          </span>
+          {isCompleted ? (
+            <Check size={20} strokeWidth={2.5} className="dl-arrow" aria-hidden="true" />
+          ) : (
+            <Download size={20} strokeWidth={2.5} className="dl-arrow" aria-hidden="true" />
+          )}
           <span>
             {isCompleted
               ? "DOWNLOAD COMPLETE! 🚀"
