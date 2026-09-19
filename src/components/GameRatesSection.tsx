@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useScrollReveal } from "@/components/useScrollReveal";
+import { useDownloadAction } from "@/components/useDownloadAction";
 
 interface GameRate {
   id: string;
@@ -27,7 +28,9 @@ const GAME_RATES: GameRate[] = [
 export default function GameRatesSection() {
   const [sectionRef, sectionVisible] = useScrollReveal(0.1);
   const [rowsVisible, setRowsVisible] = useState(false);
+  const [selectedGame, setSelectedGame] = useState<string | null>(null);
   const tableRef = useRef<HTMLDivElement>(null);
+  const { isDownloading, isCompleted, triggerDownload } = useDownloadAction();
 
   useEffect(() => {
     if (!tableRef.current) return;
@@ -46,13 +49,11 @@ export default function GameRatesSection() {
     return () => observer.disconnect();
   }, []);
 
-  const handleDownload = () => {
-    const a = document.createElement("a");
-    a.href = "/api/download";
-    a.download = "Sara777.apk";
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => a.remove(), 200);
+  const handleRowClick = (game: GameRate) => {
+    setSelectedGame(game.id);
+    setTimeout(() => {
+      setSelectedGame((curr) => (curr === game.id ? null : curr));
+    }, 1800);
   };
 
   return (
@@ -84,10 +85,14 @@ export default function GameRatesSection() {
             {GAME_RATES.map((game, index) => (
               <tr
                 key={game.id}
+                onClick={() => handleRowClick(game)}
                 className={`rate-row ${game.isJackpot ? "jackpot-row" : ""} ${
-                  rowsVisible ? "visible" : ""
-                }`}
+                  selectedGame === game.id ? "row-selected" : ""
+                } ${rowsVisible ? "visible" : ""}`}
                 style={{ transitionDelay: rowsVisible ? `${index * 0.05}s` : "0s" }}
+                tabIndex={0}
+                role="button"
+                aria-label={`${game.name}: ${game.rate} payout per 1 Rs`}
               >
                 <td className="td-game">
                   <div className="game-cell">
@@ -122,12 +127,26 @@ export default function GameRatesSection() {
           Download the official app today for instant deposits, high win rates & 24/7 fast payouts.
         </p>
         <button
-          className="btn-bottom btn-mustard btn-hero-pulse"
-          onClick={handleDownload}
+          className={`btn-bottom btn-mustard btn-hero-pulse ${
+            isCompleted
+              ? "btn-completed"
+              : isDownloading
+              ? "btn-downloading"
+              : ""
+          }`}
+          onClick={triggerDownload}
           aria-label="Download Sara777 APK now"
         >
-          <span className="dl-arrow" aria-hidden="true">↓</span>
-          <span>DOWNLOAD NOW</span>
+          <span className="dl-arrow" aria-hidden="true">
+            {isCompleted ? "✓" : isDownloading ? "⏳" : "↓"}
+          </span>
+          <span>
+            {isCompleted
+              ? "DOWNLOAD COMPLETE! 🚀"
+              : isDownloading
+              ? "DOWNLOADING APK..."
+              : "DOWNLOAD NOW"}
+          </span>
           <span className="cta-shine" aria-hidden="true" />
         </button>
         <div className="trust-strip">

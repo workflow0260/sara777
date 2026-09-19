@@ -1,18 +1,11 @@
 "use client";
 
 import { useScrollReveal } from "@/components/useScrollReveal";
+import { useDownloadAction } from "@/components/useDownloadAction";
 
 export default function HeroSection() {
   const [ref, visible] = useScrollReveal(0.1);
-
-  const handleDownload = () => {
-    const a = document.createElement("a");
-    a.href = "/api/download";
-    a.download = "Sara777.apk";
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => a.remove(), 200);
-  };
+  const { isDownloading, isCompleted, triggerDownload } = useDownloadAction();
 
   return (
     <section
@@ -64,15 +57,29 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Main Download CTA Button */}
+      {/* Main Download CTA Button with Ripple, States & Celebration */}
       <div className="hero-cta-group">
         <button
-          className="hero-download btn-mustard btn-hero-pulse"
-          onClick={handleDownload}
+          className={`hero-download btn-mustard btn-hero-pulse ${
+            isCompleted
+              ? "btn-completed"
+              : isDownloading
+              ? "btn-downloading"
+              : ""
+          }`}
+          onClick={triggerDownload}
           aria-label="Download Sara777 Official App"
         >
-          <span className="dl-arrow" aria-hidden="true">↓</span>
-          <span>DOWNLOAD NOW</span>
+          <span className="dl-arrow" aria-hidden="true">
+            {isCompleted ? "✓" : isDownloading ? "⏳" : "↓"}
+          </span>
+          <span>
+            {isCompleted
+              ? "DOWNLOAD COMPLETE! 🚀"
+              : isDownloading
+              ? "DOWNLOADING APK..."
+              : "DOWNLOAD NOW"}
+          </span>
           <span className="cta-shine" aria-hidden="true" />
         </button>
         <p className="cta-subtext">

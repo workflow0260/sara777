@@ -4,6 +4,8 @@ import GoldenParticles from "@/components/GoldenParticles";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import GameRatesSection from "@/components/GameRatesSection";
+import Toast from "@/components/Toast";
+import DownloadCelebrationVFX from "@/components/DownloadCelebrationVFX";
 
 export default function S2LandingPage() {
   return (
@@ -17,6 +19,12 @@ export default function S2LandingPage() {
         <div className="orb orb-2" />
         <div className="orb orb-3" />
       </div>
+
+      {/* Celebratory golden confetti, coins & starburst VFX on download complete */}
+      <DownloadCelebrationVFX />
+
+      {/* Floating toast notification for smooth action feedback */}
+      <Toast />
 
       {/* Main content */}
       <div className="page-wrapper">
